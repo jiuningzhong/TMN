@@ -12,7 +12,7 @@ def build_embedding(embedding_fn, dictionary, data_dir):
         embedding_mat = np.load(embedding_mat_fn)
         return embedding_mat
     embedding_index = {}
-    with open(embedding_fn) as fin:
+    with open(embedding_fn, encoding="utf8") as fin:
         first_line = True
         l_id = 0
         for line in fin:
@@ -27,7 +27,7 @@ def build_embedding(embedding_fn, dictionary, data_dir):
             coefs = np.asarray(values[1:], dtype='float32')
             embedding_index[word] = coefs
             l_id += 1
-    embedding_dim = len(embedding_index.values()[0])
+    embedding_dim = len(list(embedding_index.values())[0])
     embedding_mat = np.zeros((len(dictionary) + 1, embedding_dim))    # 0 is for padding
     for i, word in dictionary.items():
         embedding_vec = embedding_index.get(word)
