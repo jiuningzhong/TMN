@@ -1,0 +1,55 @@
+New best val bound: 3345.624 in 1 epoch
+New best val bound: 3329.038 in 2 epoch
+New best val bound: 3154.219 in 3 epoch
+New best val bound: 2940.247 in 4 epoch
+New best val bound: 2654.716 in 5 epoch
+New best val bound: 2637.361 in 6 epoch
+New best val bound: 2301.260 in 7 epoch
+New best val bound: 2227.903 in 8 epoch
+New best val bound: 2202.905 in 9 epoch
+New best val bound: 2179.514 in 10 epoch
+New best val bound: 2130.557 in 11 epoch
+New best val bound: 2121.233 in 12 epoch
+New best val bound: 2089.865 in 13 epoch
+New best val bound: 2081.153 in 14 epoch
+New best val bound: 2057.402 in 15 epoch
+New best val bound: 2055.359 in 16 epoch
+New best val bound: 2034.626 in 18 epoch
+New best val bound: 2030.573 in 19 epoch
+New best val bound: 1984.449 in 20 epoch
+New best val bound: 1963.740 in 21 epoch
+New best val bound: 1951.198 in 23 epoch
+New best val bound: 1950.952 in 26 epoch
+New best val bound: 1913.542 in 27 epoch
+New best val bound: 1890.789 in 31 epoch
+New best val bound: 1878.694 in 32 epoch
+New best val bound: 1867.441 in 33 epoch
+New best val bound: 1865.797 in 35 epoch
+New best val bound: 1856.141 in 36 epoch
+New best val bound: 1845.069 in 37 epoch
+New best val bound: 1831.408 in 40 epoch
+New best val bound: 1830.527 in 41 epoch
+New best val bound: 1798.422 in 42 epoch
+New best val bound: 1797.966 in 47 epoch
+New best val bound: 1789.371 in 49 epoch
+New best val bound: 1772.671 in 51 epoch
+New best val bound: 1764.143 in 56 epoch
+New best val bound: 1758.391 in 60 epoch
+New best val bound: 1747.126 in 61 epoch
+New best val bound: 1735.097 in 65 epoch
+New best val bound: 1732.225 in 69 epoch
+New best val bound: 1722.422 in 71 epoch
+New best val bound: 1707.268 in 72 epoch
+New best val bound: 1681.316 in 80 epoch
+New best val bound: 1677.073 in 90 epoch
+New best val bound: 1671.963 in 92 epoch
+New best val bound: 1665.036 in 102 epoch
+New best val bound: 1648.491 in 109 epoch
+New best val bound: 1647.815 in 110 epoch
+New best val acc: 0.8423, f1: 0.7948 in 122 epoch
+New best val acc: 0.8692, f1: 0.8516 in 124 epoch
+New best val acc: 0.8769, f1: 0.8704 in 127 epoch
+New best val acc: 0.8808, f1: 0.8701 in 152 epoch
+New best val bound: 1639.158 in 167 epoch
+New best val bound: 1621.666 in 168 epoch
+New best val bound: 1606.613 in 175 epoch
