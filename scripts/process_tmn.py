@@ -10,30 +10,55 @@ import logging
 logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
 logging.root.level = logging.INFO
 
+'''
 if len(sys.argv) != 2:
     print("Usage:\npython process_tmn.py <input_data_file>")
     exit(0)
-data_file = sys.argv[1]
-data_dir = os.path.dirname(data_file)
-with open(os.path.join(data_file), 'U') as fin:
-    text = gensim.utils.to_unicode(fin.read(), 'latin1').strip()
+'''
 
+data_file = '../data/tmn/tmn_data.txt'
+# print(sys.argv)
+if len(sys.argv)>1 and ".txt" in sys.argv[1]:
+    data_file = sys.argv[1]
+
+data_dir = os.path.dirname(data_file)
+with open(os.path.join(data_file)) as fin:
+    # print(fin.read())
+    text = gensim.utils.to_unicode(fin.read(), 'latin1').strip()
+    #print(text)
+# print(type(text))
 news_lst = text.split("\n")
-print(news_lst[:5])
+
 msgs = []
 labels = []
 label_dict = {}
 
 for n_i, line in enumerate(news_lst):
     msg, label = line.strip().split("######")
+    # only return sequences of alphabetic characters (no digits)
+    # saves you the extra cleaning steps for punctuation etc
+    # not include removal of stopwords, short tokens nor stemming
     msg = list(gensim.utils.tokenize(msg, lower=True))
     msgs.append(msg)
+
     if label not in label_dict:
         label_dict[label] = len(label_dict)
     labels.append(label_dict[label])
+# ['court', 'agrees', 'to', 'expedite', 'n', 'f', 'l', 's', 'appeal']
+# print(msgs[0])
+# 0 --- sport
+# print(labels[0])
+# ['u', 's', 'intelligence', 'chief', 'says', 'qaddafi', 'has', 'edge', 'in', 'conflict']
+# print(msgs[4999])
+# 4 --- world
+# print(labels[4999])
+# {'sport': 0, 'business': 1, 'entertainment': 2, 'us': 3, 'world': 4, 'health': 5, 'sci_tech': 6}
+# print(label_dict)
 
 # build dictionary
 dictionary = gensim.corpora.Dictionary(msgs)
+
+print(dictionary)
 
 import copy
 bow_dictionary = copy.deepcopy(dictionary)
@@ -70,12 +95,17 @@ def get_wids(text_doc, seq_dictionary, bow_dictionary, ori_labels):
     logging.info("get %d docs, avg len: %d, max len: %d" % (len(seq_doc), np.mean(lens), np.max(lens)))
     return seq_doc, bow_doc, m_labels
 
+print(bow_dictionary)
+
 seq_title, bow_title, label_title = get_wids(msgs, dictionary, bow_dictionary, labels)
+
 
 # split data
 indices = np.arange(len(seq_title))
 np.random.shuffle(indices)
 nb_test_samples = int(0.2 * len(seq_title))
+
+'''
 seq_title = np.array(seq_title)[indices]
 seq_title_train = seq_title[:-nb_test_samples]
 seq_title_test = seq_title[-nb_test_samples:]
@@ -102,3 +132,4 @@ dictionary.save(os.path.join(data_dir, "dataDictSeq"))
 bow_dictionary.save(os.path.join(data_dir, "dataDictBow"))
 json.dump(label_dict, open(os.path.join(data_dir, "labelDict.json"), "w"), indent=4)
 logging.info("done!")
+'''

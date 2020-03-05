@@ -12,7 +12,7 @@ def build_embedding(embedding_fn, dictionary, data_dir):
         embedding_mat = np.load(embedding_mat_fn)
         return embedding_mat
     embedding_index = {}
-    with open(embedding_fn, encoding="utf8") as fin:
+    with open(embedding_fn) as fin:
         first_line = True
         l_id = 0
         for line in fin:

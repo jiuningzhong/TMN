@@ -1,9 +1,6 @@
 {
-    "sport": 0,
-    "business": 1,
-    "entertainment": 2,
-    "us": 3,
-    "world": 4,
-    "health": 5,
-    "sci_tech": 6
+    "L-Q": 0,
+    "L-R": 1,
+    "L-I": 2,
+    "L-IS": 3
 }

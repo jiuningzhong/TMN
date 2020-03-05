@@ -9,6 +9,7 @@ from keras.layers.merge import add, concatenate
 import utils
 import keras
 import numpy as np
+import tensorflow as tf
 from datetime import datetime
 import os
 import sys
@@ -207,6 +208,13 @@ represent = generate(hidden)
 represent_mu = generate(z_mean)
 
 # build decoder
+# add change tf.compat.v1.enable_eager_execution() to
+# "/Users/jiuningzhong/opt/anaconda3/lib/python3.7/site-packages/tensorflow_core/python/ops/resource_variable_ops.py"
+# return bool(self.read_value()) line 456
+# File "/Users/jiuningzhong/opt/anaconda3/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py", line 75,
+# in symbolic_fn_wrapper
+
+# tf.compat.v1.enable_eager_execution()
 l1_strength = CustomizedL1L2(l1=0.001)
 d1 = Dense(len(dictionary_bow), activation="softmax", kernel_regularizer=l1_strength, name="p_x_given_h")
 p_x_given_h = d1(represent)
