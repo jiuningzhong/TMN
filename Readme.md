@@ -29,7 +29,7 @@ e.g. python process_tmn.py ../data/tmn/tmn_data.txt
 Run TMN:
 ```
 $ python tmn_run.py <input_data_dir> <embedding_file> <output_dir> <topic_num>     
-e.g. python tmn_run.py ../data/tmn /emb/glove.6B.200d.txt ../output 50
+e.g. python tmn_run.py ../data/tmn ../emb/glove.6B.200d.txt ../output 50
 ```
 
 More detailed configurations can be found in `tmn_run.py`.

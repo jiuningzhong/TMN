@@ -122,7 +122,7 @@ def output_beta(model):
     beta_exp = np.exp(model.get_weights()[-2])
     beta = beta_exp / (np.sum(beta_exp, 1)[:, np.newaxis])
     pickle.dump(beta, open(topicWord_fn, 'wb'))
-    with open(topicWordSample_fn, 'w') as fout:
+    with open(topicWordSample_fn, 'w', encoding="utf8") as fout:
         for k, beta_k in enumerate(beta):
             topic_words = [dictionary_bow[w_id] for w_id in np.argsort(beta_k)[:-11:-1]]
             fout.write("%s\n" % ' '.join(topic_words))

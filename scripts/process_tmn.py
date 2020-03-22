@@ -105,7 +105,7 @@ indices = np.arange(len(seq_title))
 np.random.shuffle(indices)
 nb_test_samples = int(0.2 * len(seq_title))
 
-'''
+
 seq_title = np.array(seq_title)[indices]
 seq_title_train = seq_title[:-nb_test_samples]
 seq_title_test = seq_title[-nb_test_samples:]
@@ -132,4 +132,3 @@ dictionary.save(os.path.join(data_dir, "dataDictSeq"))
 bow_dictionary.save(os.path.join(data_dir, "dataDictBow"))
 json.dump(label_dict, open(os.path.join(data_dir, "labelDict.json"), "w"), indent=4)
 logging.info("done!")
-'''

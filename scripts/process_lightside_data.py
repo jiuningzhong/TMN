@@ -38,7 +38,6 @@ data_file = '../data/tmn/Train_all_types_hashes.csv'
 
 data_dir = os.path.dirname(data_file)
 
-csv.register_dialect("hashes", delimiter="#")
 msgs = []
 labels = []
 label_dict = {}
