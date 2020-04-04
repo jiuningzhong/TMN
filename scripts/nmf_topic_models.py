@@ -1,43 +1,71 @@
-# NMF Topic Models
-# 1. Applying NMF
-from sklearn.externals import joblib
+# http://localhost:8888/notebooks/Documents/GitHub/topic-model-tutorial/2%20-%20NMF%20Topic%20Models.ipynb
+# 2 - NMF Topic Models
 
-(A,terms,snippets) = joblib.load( "articles-raw.pkl" ) # articles-tfidf.pkl
+#%% md
+
+# NMF Topic Models
+
+#%% md
+#%% md
+
+### Applying NMF
+
+#%% md
+#%%
+
+from sklearn.externals import joblib
+(A,terms,snippets) = joblib.load( "articles-tfidf.pkl" ) # articles-tfidf.pkl
 print( "Loaded %d X %d document-term matrix" % (A.shape[0], A.shape[1]) )
 
-k = 30
+#%% md
+#%%
+
+k = 50
+
+#%% md
+#%%
 
 # create the model
 from sklearn import decomposition
-model = decomposition.NMF( init="nndsvd", n_components=k )
+model = decomposition.NMF( init="nndsvd", n_components=k ) 
 # apply the model and extract the two factor matrices
 W = model.fit_transform( A )
 H = model.components_
 
+#%% md
 
+### Examining the Output
 
-# 2. Examining the Output
-# NMF produces to factor matrices as its output: W and H.
-# The W factor contains the document membership weights relative to each of the k topics.
-# Each row corresponds to a single document, and each column correspond to a topic.
-print(W.shape)
+#%% md
+#%%
+
+W.shape
+
+#%% md
+#%%
 
 # round to 2 decimal places for display purposes
-# For instance, for the first document, we see that it is strongly associated with one topic.
-# However, each document can be potentially associated with multiple topics to different degrees.
 W[0,:].round(2)
 
-print(H.shape)
+#%% md
+#%%
+
+H.shape
+
+#%% md
+#%%
 
 term_index = terms.index('light')
 # round to 2 decimal places for display purposes
-# The H factor contains the term weights relative to each of the k topics.
-# In this case, each row corresponds to a topic, and each column corresponds to a unique term in the corpus vocabulary.
-print(H[:,term_index].round(2))
+H[:,term_index].round(2)
 
-# 3. Topic Descriptors
-# The top ranked terms from the H factor for each topic can give us an insight into the content of that topic.
-# This is often called the topic descriptor. Let's define a function that extracts the descriptor for a specified topic:
+#%% md
+
+### Topic Descriptors
+
+#%% md
+#%%
+
 import numpy as np
 def get_descriptor( terms, H, topic_index, top ):
     # reverse sort the values to sort the indices
@@ -48,8 +76,81 @@ def get_descriptor( terms, H, topic_index, top ):
         top_terms.append( terms[term_index] )
     return top_terms
 
+#%% md
+#%%
+
 descriptors = []
 for topic_index in range(k):
     descriptors.append( get_descriptor( terms, H, topic_index, 10 ) )
     str_descriptor = ", ".join( descriptors[topic_index] )
     print("Topic %02d: %s" % ( topic_index+1, str_descriptor ) )
+
+#%% md
+#%%
+
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+matplotlib.rcParams.update({"font.size": 14})
+
+def plot_top_term_weights( terms, H, topic_index, top ):
+    # get the top terms and their weights
+    top_indices = np.argsort( H[topic_index,:] )[::-1]
+    top_terms = []
+    top_weights = []
+    for term_index in top_indices[0:top]:
+        top_terms.append( terms[term_index] )
+        top_weights.append( H[topic_index,term_index] )
+    # note we reverse the ordering for the plot
+    top_terms.reverse()
+    top_weights.reverse()
+    # create the plot
+    fig = plt.figure(figsize=(13,8))
+    # add the horizontal bar chart
+    ypos = np.arange(top)
+    ax = plt.barh(ypos, top_weights, align="center", color="green",tick_label=top_terms)
+    plt.xlabel("Term Weight",fontsize=14)
+    plt.tight_layout()
+    plt.show()
+
+plot_top_term_weights( terms, H, 6, 15 )
+
+#%% md
+
+### Most Relevant Documents
+
+
+def get_top_snippets( all_snippets, W, topic_index, top ):
+    # reverse sort the values to sort the indices
+    top_indices = np.argsort( W[:,topic_index] )[::-1]
+    # now get the snippets corresponding to the top-ranked indices
+    top_snippets = []
+    for doc_index in top_indices[0:top]:
+        top_snippets.append( all_snippets[doc_index] )
+    return top_snippets
+
+topic_snippets = get_top_snippets( snippets, W, 0, 10 )
+for i, snippet in enumerate(topic_snippets):
+    print("%02d. %s" % ( (i+1), snippet ) )
+
+
+topic_snippets = get_top_snippets( snippets, W, 1, 10 )
+for i, snippet in enumerate(topic_snippets):
+    print("%02d. %s" % ( (i+1), snippet ) )
+
+#%% md
+
+### Exporting the Results
+
+
+
+joblib.dump((W,H,terms,snippets), "articles-model-nmf-k%02d.pkl" % k) 
+
+#%%
+
+
+
+#%%
+
+

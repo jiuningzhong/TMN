@@ -55,6 +55,8 @@ with open(os.path.join(data_file), mode='r', encoding="utf8") as csv_file:
             label_dict[label] = len(label_dict)
         labels.append(label_dict[label])
 
+print(msgs)
+
 '''
 print(msgs[0])
 print(labels[0])
